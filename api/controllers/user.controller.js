@@ -64,7 +64,7 @@ module.exports.userInfo = async (req, res) => {
     try {
       const getAllUsers= await User.find();
   
-      if (!getAllHotels) {
+      if (!getAllUsers) {
         return res.status(404).send("Hotel not found");
       }
   

@@ -4,26 +4,22 @@ const { createError } = require('../utils/error');
 // create
 
 module.exports.createRoom = async (req, res, next) => {
-    const hotelId = req.params.hotelid;
-    const newRoom = new Room(req.body);
-  
-    try {
-      const savedRoom = await newRoom.save();
-  
-      try {
-        
-        await Hotel.findByIdAndUpdate(hotelId, {
-          $push: { rooms: savedRoom._id },
-        });
-      } catch (error) {
-        return next(error);
-      }
-  
-      res.status(200).json(savedRoom);
-    } catch (err) {
-      next(err); 
-    }
-  };
+  const hotelId = req.params.hotelid;
+  const newRoom = new Room({
+    ...req.body,
+    hotelId: hotelId
+  });
+
+  try {
+    const savedRoom = await newRoom.save();
+    await Hotel.findByIdAndUpdate(hotelId, {
+      $push: { rooms: savedRoom._id },
+    });
+    res.status(200).json(savedRoom);
+  } catch (err) {
+    next(err);
+  }
+};
 
 //uodate
 module.exports.updateRoom = async (req, res) => {

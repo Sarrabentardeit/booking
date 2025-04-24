@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin</title>
+  <link rel="stylesheet" href="style-dashbord.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="logo">HotelAdmin</h2>
+      <nav>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="hotels.html"><i class="fas fa-hotel"></i> Hôtels</a>
+        <a href="rooms.html" class="active"><i class="fas fa-bed"></i> Chambres</a>
+        <a href="#"><i class="fas fa-users"></i> Utilisateurs</a>
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <header class="topbar">
+        <input type="text" placeholder="Recherche...">
+        <div class="icons">
+          <i class="fas fa-bell"></i>
+          <i class="fas fa-cog"></i>
+          <img src="https://i.pravatar.cc/40" alt="User">
+        </div>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+          <h3>Utilisateurs</h3>
+          <p id="userCount">0</p>
+        </div>
+        <div class="card">
+          <h3>Réservations</h3>
+          <p id="roomCount">0</p>
+        </div>
+        
+      </section>
+
+      <section class="graph">
+        <h3>Activité récente (revenus mensuels)</h3>
+        <canvas id="revenueChart"></canvas>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Revenus mensuels',
+          data: [500, 700, 400, 900, 600, 800],
+          fill: true,
+          backgroundColor: 'rgba(52, 152, 219, 0.2)',
+          borderColor: '#3498db',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

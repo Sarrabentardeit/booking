@@ -14,7 +14,7 @@ router.delete("/find/:id",verifyAdmin,hotelsController.deleteHotel)
   
 //recupere hotels avec id 
 router.get("/:id",hotelsController.hotelInfo)
-
+router.get('/',hotelsController.getAllHotels);
 router.get("/countByCity",hotelsController.countByCity)
 
 module.exports = router;
